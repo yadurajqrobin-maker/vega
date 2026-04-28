@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="VEGA">
+<title>VEGA — Built by Yaduraj</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e5ea;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    flex-shrink: 0;
+  }
+
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: #1a1a2e;
+  }
+
+  .logo-div { width: 1px; height: 20px; background: #dde1e7; }
+
+  .car-name {
+    font-size: 11px;
+    color: #8892a4;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .top-right { display: flex; align-items: center; gap: 14px; }
+
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: #8892a4;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #34c759;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  .dot.red { background: #ff3b30; }
+  .dot.yellow { background: #ff9500; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .clock {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    color: #1a1a2e;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+
+  /* MAIN */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+    gap: 0;
+  }
+
+  /* LEFT */
+  .left {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+    background: #f0f2f5;
+    overflow: hidden;
+    border-right: 1px solid #e2e5ea;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .card-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #8892a4;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  /* Car image */
+  .car-img-box {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #e8ecf0, #dde1e7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .car-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .car-tag {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 9px;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+  }
+
+  /* VEGA card */
+  .vega-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .orb-wrapper { position: relative; }
+
+  .orb {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffffff, #f0f2f5);
+    border: 2px solid #e2e5ea;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1), inset 0 1px 2px rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: orbIdle 4s ease-in-out infinite;
+  }
+
+  @keyframes orbIdle {
+    0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.08), inset 0 1px 2px rgba(255,255,255,0.8); }
+    50% { box-shadow: 0 6px 28px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.8); }
+  }
+
+  .orb.listening {
+    border-color: #007aff;
+    box-shadow: 0 0 0 6px rgba(0,122,255,0.1), 0 4px 20px rgba(0,122,255,0.2);
+    animation: orbListen 0.8s ease-in-out infinite;
+  }
+
+  .orb.thinking {
+    border-color: #ff9500;
+    box-shadow: 0 0 0 6px rgba(255,149,0,0.1), 0 4px 20px rgba(255,149,0,0.2);
+    animation: orbThink 1s ease-in-out infinite;
+  }
+
+  @keyframes orbListen {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+
+  @keyframes orbThink {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.97); opacity: 0.8; }
+  }
+
+  .orb-icon { font-size: 30px; }
+
+  .vega-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: #1a1a2e;
+    font-weight: 600;
+  }
+
+  .vega-status {
+    font-size: 10px;
+    color: #8892a4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .response-box {
+    background: #f8f9fb;
+    border: 1px solid #e8ecf0;
+    border-radius: 10px;
+    padding: 10px 12px;
+    width: 100%;
+    font-size: 12px;
+    color: #3d4455;
+    line-height: 1.6;
+    min-height: 48px;
+  }
+
+  /* Wake button */
+  .wake-btn {
+    background: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .wake-btn:active { transform: scale(0.97); opacity: 0.9; }
+
+  /* RIGHT */
+  .right {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 10px;
+    background: #f0f2f5;
+    overflow: hidden;
+  }
+
+  /* Stat grid */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: #8892a4;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    color: #1a1a2e;
+  }
+
+  .stat-unit {
+    font-size: 9px;
+    color: #b0b8c4;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  .stat-accent-blue { color: #007aff; }
+  .stat-accent-green { color: #34c759; }
+  .stat-accent-orange { color: #ff9500; }
+
+  .fuel-bar {
+    height: 3px;
+    background: #e8ecf0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  .fuel-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #34c759, #30d158);
+    border-radius: 2px;
+    transition: width 1s;
+  }
+
+  .eng-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 7px;
+    border-radius: 20px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 2px;
+    width: fit-content;
+    font-weight: 600;
+  }
+
+  .eng-badge.good {
+    background: rgba(52,199,89,0.1);
+    color: #34c759;
+  }
+
+  .eng-badge.warn {
+    background: rgba(255,149,0,0.1);
+    color: #ff9500;
+  }
+
+  .eng-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  /* Trip */
+  .trip-row {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .trip-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+
+  .trip-label {
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: #8892a4;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .trip-val {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    color: #1a1a2e;
+    font-weight: 600;
+  }
+
+  .trip-div { width: 1px; height: 24px; background: #e8ecf0; }
+
+  /* Alert */
+  .alert-row {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .alert-text { font-size: 11px; color: #3d4455; font-weight: 500; }
+  .alert-time { font-size: 9px; color: #b0b8c4; font-weight: 500; }
+
+  /* BOTTOM */
+  .bottombar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 24px;
+    background: #ffffff;
+    border-top: 1px solid #e2e5ea;
+    flex-shrink: 0;
+  }
+
+  .bot-info { font-size: 9px; color: #b0b8c4; letter-spacing: 1px; font-weight: 500; }
+
+  .pill-row { display: flex; gap: 14px; }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    color: #8892a4;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  .pill-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #34c759;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  /* Wave animation */
+  .wave-bars {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .wave-bars.active { opacity: 1; }
+
+  .wave-bar {
+    width: 2px;
+    background: #007aff;
+    border-radius: 2px;
+    animation: wave 1s ease-in-out infinite;
+  }
+
+  .wave-bar:nth-child(1) { height: 4px; animation-delay: 0s; }
+  .wave-bar:nth-child(2) { height: 10px; animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { height: 16px; animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { height: 10px; animation-delay: 0.3s; }
+  .wave-bar:nth-child(5) { height: 4px; animation-delay: 0.4s; }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.8); }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- TOP -->
+  <div class="topbar">
+    <div class="logo-area">
+      <div class="logo">VEGA</div>
+      <div class="logo-div"></div>
+      <div class="car-name">Kia Seltos 2021</div>
+    </div>
+    <div class="top-right">
+      <div class="badge"><div class="dot"></div>OBD2</div>
+      <div class="badge"><div class="dot"></div>Bluetooth</div>
+      <div class="badge"><div class="dot"></div>GPS</div>
+      <div class="wave-bars" id="waveBars">
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+      </div>
+      <div class="clock" id="clock">00:00</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- LEFT -->
+    <div class="left">
+
+      <!-- Car -->
+      <div class="card">
+        <div class="card-label">Your Vehicle</div>
+        <div class="car-img-box">
+          <img
+            src="https://imgd.aeplcdn.com/664x374/n/cw/ec/33276/seltos-exterior-right-front-three-quarter-2.jpeg?q=75"
+            alt="Kia Seltos"
+            onerror="this.style.display='none'"
+          />
+          <div class="car-tag">HTX+ • Diesel</div>
+        </div>
+      </div>
+
+      <!-- VEGA -->
+      <div class="card vega-card" style="flex:1;">
+        <div class="orb-wrapper">
+          <div class="orb" id="orb" onclick="startListening()">
+            <span class="orb-icon" id="orbIcon">🎙️</span>
+          </div>
+        </div>
+        <div class="vega-name">V E G A</div>
+        <div class="vega-status" id="status">Say "Hey VEGA" to start</div>
+        <div class="response-box" id="response">
+          Hello Yaduraj. VEGA is online and ready. All systems operational.
+        </div>
+        <button class="wake-btn" onclick="startListening()">TAP TO TALK</button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+
+      <div class="card-label" style="margin-bottom:0;">Live Car Stats</div>
+
+      <div class="stat-grid">
+
+        <div class="stat-card">
+          <div class="stat-label">Speed</div>
+          <div class="stat-value stat-accent-blue" id="speed">85</div>
+          <div class="stat-unit">KM / H</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Fuel</div>
+          <div class="stat-value stat-accent-green" id="fuel">65</div>
+          <div class="stat-unit">PERCENT</div>
+          <div class="fuel-bar">
+            <div class="fuel-fill" id="fuelFill" style="width:65%"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Engine Temp</div>
+          <div class="stat-value stat-accent-orange" id="temp">87°C</div>
+          <div class="eng-badge good" id="engBadge">
+            <div class="eng-dot"></div>Normal
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">RPM</div>
+          <div class="stat-value" id="rpm">2,400</div>
+          <div class="stat-unit">REV / MIN</div>
+        </div>
+
+      </div>
+
+      <div class="card-label" style="margin-bottom:0;">Trip Info</div>
+      <div class="trip-row">
+        <div class="trip-item">
+          <div class="trip-label">Distance</div>
+          <div class="trip-val" id="dist">0.0 km</div>
+        </div>
+        <div class="trip-div"></div>
+        <div class="trip-item">
+          <div class="trip-label">Duration</div>
+          <div class="trip-val" id="dur">00:00</div>
+        </div>
+        <div class="trip-div"></div>
+        <div class="trip-item">
+          <div class="trip-label">Avg Speed</div>
+          <div class="trip-val" id="avg">-- km/h</div>
+        </div>
+        <div class="trip-div"></div>
+        <div class="trip-item">
+          <div class="trip-label">Range</div>
+          <div class="trip-val" id="range">280 km</div>
+        </div>
+      </div>
+
+      <div class="card-label" style="margin-bottom:0;">VEGA Alerts</div>
+      <div class="alert-row">
+        <div class="alert-text" id="alert">✅ All systems normal</div>
+        <div class="alert-time" id="alertTime">Just now</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottombar">
+    <div class="bot-info">VEGA v2.0 • Built by Yaduraj</div>
+    <div class="pill-row">
+      <div class="pill"><div class="pill-dot"></div>Groq AI</div>
+      <div class="pill"><div class="pill-dot"></div>Piper Voice</div>
+      <div class="pill"><div class="pill-dot"></div>GPS Active</div>
+    </div>
+    <div class="bot-info" id="date">--</div>
+  </div>
+
+</div>
+
+<script>
+const GROQ_KEY = "YOUR_GROQ_API_KEY";
+
+const PERSONALITY = `You are VEGA — a futuristic and ultra-intelligent AI assistant built for the driver. You were built by Yaduraj. Your name is VEGA. Be sharp, calm and decisive. Give short confident answers. Never say you are any other AI. You are only VEGA. Always address the driver as Yaduraj. You know Jharkhand roads well — Ranchi, Dhanbad, Jamshedpur, Bokaro, Hazaribagh are major cities. NH19 connects Dhanbad to Ranchi (155km, 3hrs). NH33 connects Ranchi to Jamshedpur (130km, 2.5hrs).`;
+
+// Clock
+function tick() {
+  const n = new Date();
+  const h = String(n.getHours()).padStart(2,'0');
+  const m = String(n.getMinutes()).padStart(2,'0');
+  document.getElementById('clock').textContent = `${h}:${m}`;
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('date').textContent =
+    `${days[n.getDay()]}, ${n.getDate()} ${months[n.getMonth()]} ${n.getFullYear()}`;
+}
+setInterval(tick, 1000); tick();
+
+// Trip
+let secs=0, totalSpd=0, readings=0, dist=0;
+setInterval(() => {
+  secs++;
+  const mm=Math.floor(secs/60), ss=secs%60;
+  document.getElementById('dur').textContent =
+    `${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+}, 1000);
+
+// Live data
+setInterval(() => {
+  const spd = Math.floor(70+Math.random()*30);
+  document.getElementById('speed').textContent = spd;
+  totalSpd+=spd; readings++;
+  document.getElementById('avg').textContent = `${Math.floor(totalSpd/readings)} km/h`;
+  dist += spd/3600*1.5;
+  document.getElementById('dist').textContent = `${dist.toFixed(1)} km`;
+  document.getElementById('rpm').textContent = Math.floor(1800+Math.random()*2000).toLocaleString();
+  const t = Math.floor(85+Math.random()*8);
+  document.getElementById('temp').textContent = `${t}°C`;
+  if (t > 90) {
+    document.getElementById('engBadge').className = 'eng-badge warn';
+    document.getElementById('engBadge').innerHTML = '<div class="eng-dot"></div>High Temp';
+    document.getElementById('alert').textContent = '⚠️ Engine temp high — check coolant';
+  } else {
+    document.getElementById('engBadge').className = 'eng-badge good';
+    document.getElementById('engBadge').innerHTML = '<div class="eng-dot"></div>Normal';
+    document.getElementById('alert').textContent = '✅ All systems normal';
+  }
+  const fuel = parseInt(document.getElementById('fuel').textContent);
+  document.getElementById('range').textContent = `${Math.floor(fuel*4.3)} km`;
+}, 1500);
+
+// Speech Recognition
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition;
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.lang = 'en-IN';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onresult = async (event) => {
+    const text = event.results[0][0].transcript;
+    console.log('Yaduraj:', text);
+    await processInput(text);
+  };
+
+  recognition.onerror = () => {
+    setStatus('Error. Tap to try again.');
+    resetOrb();
+  };
+
+  recognition.onend = () => {
+    if (document.getElementById('orb').classList.contains('listening')) {
+      resetOrb();
+    }
+  };
+}
+
+function startListening() {
+  if (!recognition) {
+    setResponse('Speech recognition not supported on this browser. Use Chrome or Safari.');
+    return;
+  }
+  const orb = document.getElementById('orb');
+  orb.className = 'orb listening';
+  document.getElementById('orbIcon').textContent = '🎤';
+  setStatus('Listening...');
+  document.getElementById('waveBars').classList.add('active');
+  recognition.start();
+}
+
+function resetOrb() {
+  document.getElementById('orb').className = 'orb';
+  document.getElementById('orbIcon').textContent = '🎙️';
+  document.getElementById('waveBars').classList.remove('active');
+}
+
+function setStatus(text) {
+  document.getElementById('status').textContent = text;
+}
+
+function setResponse(text) {
+  document.getElementById('response').textContent = text;
+}
+
+async function processInput(text) {
+  const orb = document.getElementById('orb');
+  orb.className = 'orb thinking';
+  document.getElementById('orbIcon').textContent = '🤔';
+  setStatus('Thinking...');
+
+  // Handle commands
+  const cmd = text.toLowerCase();
+
+  if (cmd.includes('navigate to') || cmd.includes('take me to')) {
+    const dest = cmd.replace('navigate to','').replace('take me to','').trim();
+    const url = `https://maps.google.com/maps?q=${dest.replace(/ /g,'+')}`;
+    window.open(url);
+    speak(`Opening navigation to ${dest} Yaduraj.`);
+    return;
+  }
+
+  if (cmd.includes('weather')) {
+    const city = cmd.includes('in') ? cmd.split('in').pop().trim() : 'Dhanbad';
+    try {
+      const res = await fetch(`https://wttr.in/${city}?format=3`);
+      const weather = await res.text();
+      speak(`Weather in ${city}: ${weather}`);
+    } catch {
+      speak('Cannot get weather right now Yaduraj.');
+    }
+    return;
+  }
+
+  // AI Response
+  try {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: 100,
+        messages: [
+          { role: 'system', content: PERSONALITY },
+          { role: 'user', content: text }
+        ]
+      })
+    });
+
+    const data = await res.json();
+    const reply = data.choices[0].message.content;
+    speak(reply);
+  } catch (e) {
+    speak('Connection issue Yaduraj. Please try again.');
+  }
+}
+
+function speak(text) {
+  setResponse(text);
+  setStatus('Say "Hey VEGA" to start');
+  resetOrb();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-IN';
+  utterance.pitch = 0.85;
+  utterance.rate = 0.95;
+  utterance.volume = 1;
+
+  // Try to find a good voice
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(v =>
+    v.name.toLowerCase().includes('male') ||
+    v.name.toLowerCase().includes('daniel') ||
+    v.name.toLowerCase().includes('alex') ||
+    v.lang === 'en-IN'
+  );
+  if (preferred) utterance.voice = preferred;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+// Load voices
+window.speechSynthesis.onvoiceschanged = () => {
+  window.speechSynthesis.getVoices();
+};
+
+// Wake word detection (continuous listening)
+let wakeWordActive = false;
+
+function startWakeWordDetection() {
+  if (!SpeechRecognition) return;
+
+  const wakeRecognition = new SpeechRecognition();
+  wakeRecognition.lang = 'en-IN';
+  wakeRecognition.continuous = true;
+  wakeRecognition.interimResults = true;
+
+  wakeRecognition.onresult = (event) => {
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript.toLowerCase();
+      if (transcript.includes('hey vega') || transcript.includes('vega')) {
+        wakeRecognition.stop();
+        setTimeout(() => startListening(), 300);
+      }
+    }
+  };
+
+  wakeRecognition.onend = () => {
+    setTimeout(() => startWakeWordDetection(), 500);
+  };
+
+  try { wakeRecognition.start(); } catch(e) {}
+}
+
+// Start wake word detection after 2 seconds
+setTimeout(startWakeWordDetection, 2000);
+</script>
+</body>
+</html>
