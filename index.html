@@ -529,7 +529,7 @@
         <div class="response-box" id="response">
           Hello Yaduraj. VEGA is online and ready. All systems operational.
         </div>
-        <button class="wake-btn" onclick="startListening()">TAP TO TALK</button>
+        <button class="wake-btn" onclick="unlockAudio(); startListening()">TAP TO TALK</button>
       </div>
 
     </div>
@@ -707,6 +707,11 @@ function startListening() {
   setStatus('Listening...');
   document.getElementById('waveBars').classList.add('active');
   recognition.start();
+} 
+ 
+ function unlockAudio() {
+  const u = new SpeechSynthesisUtterance('');
+  window.speechSynthesis.speak(u);
 }
 
 function resetOrb() {
@@ -783,6 +788,7 @@ function speak(text) {
   setStatus('Say "Hey VEGA" to start');
   resetOrb();
 
+  window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-IN';
   utterance.pitch = 0.85;
