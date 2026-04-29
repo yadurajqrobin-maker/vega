@@ -835,16 +835,7 @@ if (preferred) {
   utterance.volume = 1;
 
   // Try to find a good voice
- const voices = window.speechSynthesis.getVoices() || [];
-
-const preferred =
-  voices.find(v => v.lang === 'en-IN') ||
-  voices.find(v => v.lang.startsWith('en')) ||
-  null;
-
-if (preferred) {
-  utterance.voice = preferred;
-}
+ 
   window.speechSynthesis.speak(utterance);
 }
 
