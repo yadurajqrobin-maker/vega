@@ -684,11 +684,12 @@ if (SpeechRecognition) {
     await processInput(text);
   };
 
-  recognition.onerror = () => {
-    setStatus('Error. Tap to try again.');
-    resetOrb();
-  };
-
+  recognition.onerror = (event) => {
+  console.error("Speech Error:", event.error);
+  setStatus('Mic error: ' + event.error);
+  resetOrb();
+};
+ 
   recognition.onend = () => {
     if (document.getElementById('orb').classList.contains('listening')) {
       resetOrb();
@@ -698,16 +699,27 @@ if (SpeechRecognition) {
 
 function startListening() {
   if (!recognition) {
-    setResponse('Speech recognition not supported on this browser. Use Chrome or Safari.');
+    setResponse('Speech recognition not supported.');
     return;
   }
+
+  try {
+    recognition.stop(); // stop previous session if already running
+  } catch(e) {}
+
   const orb = document.getElementById('orb');
   orb.className = 'orb listening';
   document.getElementById('orbIcon').textContent = '🎤';
   setStatus('Listening...');
   document.getElementById('waveBars').classList.add('active');
-  recognition.start();
-} 
+
+  try {
+    recognition.start();
+  } catch (e) {
+    console.error("Start error:", e);
+    setStatus('Mic start failed');
+  }
+
  
  function unlockAudio() {
   const u = new SpeechSynthesisUtterance('');
@@ -775,7 +787,13 @@ async function processInput(text) {
       })
     });
 
-    const data = await res.json();
+    if (!res.ok) {
+  console.error("API ERROR:", res.status);
+  speak("API error Yaduraj. Status " + res.status);
+  return;
+}
+
+const data = await res.json();
     const reply = data.choices[0].message.content;
     speak(reply);
   } catch (e) {
