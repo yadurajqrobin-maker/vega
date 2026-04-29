@@ -509,18 +509,17 @@
         <div class="card-label">Your Vehicle</div>
         <div class="car-img-box">
           <img
-            src="https://imgd.aeplcdn.com/664x374/n/cw/ec/33276/seltos-exterior-right-front-three-quarter-2.jpeg?q=75"
-            alt="Kia Seltos"
+src="https://imgd.aeplcdn.com/664x374/n/cw/ec/33276/seltos-exterior-right-front-three-quarter.jpeg?q=75"            alt="Kia Seltos"
             onerror="this.style.display='none'"
           />
-          <div class="car-tag">HTX+ • Diesel</div>
+          <div class="car-tag">HTK+ • Petrol</div>
         </div>
       </div>
 
       <!-- VEGA -->
       <div class="card vega-card" style="flex:1;">
         <div class="orb-wrapper">
-          <div class="orb" id="orb" onclick="startListening()">
+         <div class="orb" id="orb" id="orbBtn">
             <span class="orb-icon" id="orbIcon">🎙️</span>
           </div>
         </div>
@@ -529,7 +528,7 @@
         <div class="response-box" id="response">
           Hello Yaduraj. VEGA is online and ready. All systems operational.
         </div>
-        <button class="wake-btn" onclick="unlockAudio(); startListening()">TAP TO TALK</button>
+       <button class="wake-btn" id="talkBtn">TAP TO TALK</button>
       </div>
 
     </div>
@@ -890,3 +889,9 @@ if (clean === "hey vega" || clean.includes("hey vega")) {
 setTimeout(() => {
   startWakeWordDetection();
 }, 2000);
+
+ document.getElementById('orbBtn').addEventListener('click', startListening);
+document.getElementById('talkBtn').addEventListener('click', () => {
+  unlockAudio();
+  startListening();
+});
