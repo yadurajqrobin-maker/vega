@@ -775,6 +775,17 @@ function speak(text) {
     null;
   if (preferred) utterance.voice = preferred;
 
+ // iOS requires audio to be triggered by user gesture
+if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+  const resume = () => {
+    window.speechSynthesis.speak(utterance);
+    document.removeEventListener('touchend', resume);
+  };
+  document.addEventListener('touchend', resume);
+  // Trigger immediately since we're already in a tap context
+  window.speechSynthesis.cancel();
+  setTimeout(() => window.speechSynthesis.speak(utterance), 100);
+} else {
   window.speechSynthesis.speak(utterance);
 }
 
