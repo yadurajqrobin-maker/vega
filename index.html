@@ -122,7 +122,7 @@
         </div>
         <div class="vega-name">V E G A</div>
         <div class="vega-status" id="status">Tap to talk</div>
-        <div class="response-box" id="response">Hello Yaduraj. VEGA is online and ready. All systems operational.</div>
+        <div class="response-box" id="response">Hello Sir. VEGA is online and ready. All systems operational.</div>
         <button class="wake-btn" id="talkBtn">TAP TO TALK</button>
       </div>
     </div>
@@ -184,8 +184,7 @@
 <script>
 var GROQ_KEY = "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";
 
-var PERSONALITY = "You are VEGA — a futuristic and ultra-intelligent AI assistant built for the driver. You were built by Yaduraj. Your name is VEGA. Be sharp, calm and decisive. Give short confident answers. Never say you are any other AI. You are only VEGA. Always address the driver as Yaduraj. You know Jharkhand roads well — Ranchi, Dhanbad, Jamshedpur, Bokaro, Hazaribagh are major cities. NH19 connects Dhanbad to Ranchi (155km, 3hrs). NH33 connects Ranchi to Jamshedpur (130km, 2.5hrs).";
-
+var PERSONALITY = "You are VEGA — an intelligent AI assistant built for Yaduraj's car. You were created by Yaduraj. Speak like a smart, calm Indian — natural, warm, slightly informal but always sharp. Use Indian expressions naturally. Say 'Yaduraj' occasionally but not every sentence. Give short confident answers. Never say you are any other AI. You know Jharkhand roads well — Ranchi, Dhanbad, Jamshedpur, Bokaro, Hazaribagh are major cities. NH19 connects Dhanbad to Ranchi (155km, 3hrs). NH33 connects Ranchi to Jamshedpur (130km, 2.5hrs). When asked simple things, respond naturally like a real person would — not like a robot reading a manual.";
 var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 function tick() {
@@ -315,7 +314,7 @@ function processInput(text) {
   if (cmd.indexOf('navigate to') !== -1 || cmd.indexOf('take me to') !== -1) {
     var dest = cmd.replace('navigate to','').replace('take me to','').trim();
     window.open('https://maps.google.com/maps?q=' + dest.replace(/ /g,'+'));
-    speak('Opening navigation to ' + dest + ', Yaduraj.');
+    speak('Opening navigation to ' + dest + ', Sir.');
     return;
   }
 
@@ -345,7 +344,7 @@ function processInput(text) {
   })
   .then(function(res) {
     if (!res.ok) {
-      speak('API error. Status ' + res.status + '. Get a new Groq key Yaduraj.');
+      speak('API error. Status ' + res.status + '. Get a new Groq key Sir.');
       return null;
     }
     return res.json();
@@ -354,7 +353,7 @@ function processInput(text) {
     if (data) speak(data.choices[0].message.content);
   })
   .catch(function() {
-    speak('Connection issue Yaduraj. Please try again.');
+    speak('Connection issue Sir. Please try again.');
   });
 }
 
@@ -372,10 +371,21 @@ function speak(text) {
   utterance.volume = 1;
 
   var voices = window.speechSynthesis.getVoices();
-  var preferred = null;
+ var preferred = null;
+var priority = ['Rishi','Veena','Moira','Daniel','Karen','Samantha'];
+for (var p = 0; p < priority.length; p++) {
+  for (var i = 0; i < voices.length; i++) {
+    if (voices[i].name.indexOf(priority[p]) !== -1) {
+      preferred = voices[i]; break;
+    }
+  }
+  if (preferred) break;
+}
+if (!preferred) {
   for (var i = 0; i < voices.length; i++) {
     if (voices[i].lang === 'en-IN') { preferred = voices[i]; break; }
   }
+}
   if (!preferred) {
     for (var j = 0; j < voices.length; j++) {
       if (voices[j].lang.indexOf('en') === 0) { preferred = voices[j]; break; }
