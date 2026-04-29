@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="VEGA">
 <title>VEGA — Built by Yaduraj</title>
@@ -27,7 +27,6 @@
     width: 100vw;
   }
 
-  /* TOP BAR */
   .topbar {
     display: flex;
     justify-content: space-between;
@@ -78,9 +77,6 @@
     animation: blink 2s ease-in-out infinite;
   }
 
-  .dot.red { background: #ff3b30; }
-  .dot.yellow { background: #ff9500; }
-
   @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
@@ -94,17 +90,14 @@
     font-weight: 600;
   }
 
-  /* MAIN */
   .main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     flex: 1;
     overflow: hidden;
     min-height: 0;
-    gap: 0;
   }
 
-  /* LEFT */
   .left {
     display: flex;
     flex-direction: column;
@@ -131,41 +124,34 @@
     margin-bottom: 10px;
   }
 
-  /* Car image */
-  .car-img-box {
+  .car-display {
     width: 100%;
     height: 100px;
     border-radius: 10px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #e8ecf0, #dde1e7);
+    background: linear-gradient(135deg, #1a1a2e, #2d3561);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     position: relative;
   }
 
-  .car-img-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
+  .car-emoji { font-size: 32px; }
+
+  .car-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    letter-spacing: 3px;
   }
 
-  .car-tag {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 6px;
-    padding: 3px 8px;
+  .car-variant {
     font-size: 9px;
-    color: #1a1a2e;
-    letter-spacing: 1px;
-    font-weight: 600;
-    backdrop-filter: blur(4px);
+    color: #8892a4;
+    letter-spacing: 2px;
   }
 
-  /* VEGA card */
   .vega-card {
     flex: 1;
     display: flex;
@@ -175,8 +161,6 @@
     gap: 10px;
     min-height: 0;
   }
-
-  .orb-wrapper { position: relative; }
 
   .orb {
     width: 90px; height: 90px;
@@ -250,7 +234,6 @@
     min-height: 48px;
   }
 
-  /* Wake button */
   .wake-btn {
     background: #1a1a2e;
     color: white;
@@ -267,7 +250,6 @@
 
   .wake-btn:active { transform: scale(0.97); opacity: 0.9; }
 
-  /* RIGHT */
   .right {
     display: flex;
     flex-direction: column;
@@ -277,7 +259,6 @@
     overflow: hidden;
   }
 
-  /* Stat grid */
   .stat-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -349,15 +330,8 @@
     font-weight: 600;
   }
 
-  .eng-badge.good {
-    background: rgba(52,199,89,0.1);
-    color: #34c759;
-  }
-
-  .eng-badge.warn {
-    background: rgba(255,149,0,0.1);
-    color: #ff9500;
-  }
+  .eng-badge.good { background: rgba(52,199,89,0.1); color: #34c759; }
+  .eng-badge.warn { background: rgba(255,149,0,0.1); color: #ff9500; }
 
   .eng-dot {
     width: 4px; height: 4px;
@@ -366,7 +340,6 @@
     animation: blink 1.5s ease-in-out infinite;
   }
 
-  /* Trip */
   .trip-row {
     background: #ffffff;
     border-radius: 12px;
@@ -396,7 +369,6 @@
 
   .trip-div { width: 1px; height: 24px; background: #e8ecf0; }
 
-  /* Alert */
   .alert-row {
     background: #ffffff;
     border-radius: 12px;
@@ -410,7 +382,6 @@
   .alert-text { font-size: 11px; color: #3d4455; font-weight: 500; }
   .alert-time { font-size: 9px; color: #b0b8c4; font-weight: 500; }
 
-  /* BOTTOM */
   .bottombar {
     display: flex;
     justify-content: space-between;
@@ -442,7 +413,6 @@
     animation: blink 2s ease-in-out infinite;
   }
 
-  /* Wave animation */
   .wave-bars {
     display: flex;
     gap: 2px;
@@ -507,25 +477,24 @@
       <!-- Car -->
       <div class="card">
         <div class="card-label">Your Vehicle</div>
-        <div class="car-img-box">
-          <img  
-src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2020_Kia_Seltos_1.4_EXP_%28Indonesia%29_front_view.jpg/640px-2020_Kia_Seltos_1.4_EXP_%28Indonesia%29_front_view.jpg"         <div class="car-name">Kia Seltos 2021 • HTK Petrol</div>
+        <div class="car-display">
+          <div class="car-emoji">🚗</div>
+          <div class="car-title">KIA SELTOS</div>
+          <div class="car-variant">2021 • HTK • PETROL</div>
         </div>
       </div>
 
       <!-- VEGA -->
       <div class="card vega-card" style="flex:1;">
-        <div class="orb-wrapper">
-         <div class="orb" id="orbBtn">
-            <span class="orb-icon" id="orbIcon">🎙️</span>
-          </div>
+        <div class="orb" id="orb">
+          <span class="orb-icon" id="orbIcon">🎙️</span>
         </div>
         <div class="vega-name">V E G A</div>
-        <div class="vega-status" id="status">Say "Hey VEGA" to start</div>
+        <div class="vega-status" id="status">Tap to talk</div>
         <div class="response-box" id="response">
           Hello Yaduraj. VEGA is online and ready. All systems operational.
         </div>
-       <button class="wake-btn" id="talkBtn">TAP TO TALK</button>
+        <button class="wake-btn" id="talkBtn">TAP TO TALK</button>
       </div>
 
     </div>
@@ -536,13 +505,11 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2020_Kia_Seltos_1
       <div class="card-label" style="margin-bottom:0;">Live Car Stats</div>
 
       <div class="stat-grid">
-
         <div class="stat-card">
           <div class="stat-label">Speed</div>
           <div class="stat-value stat-accent-blue" id="speed">85</div>
           <div class="stat-unit">KM / H</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label">Fuel</div>
           <div class="stat-value stat-accent-green" id="fuel">65</div>
@@ -551,7 +518,6 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2020_Kia_Seltos_1
             <div class="fuel-fill" id="fuelFill" style="width:65%"></div>
           </div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label">Engine Temp</div>
           <div class="stat-value stat-accent-orange" id="temp">87°C</div>
@@ -559,13 +525,11 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2020_Kia_Seltos_1
             <div class="eng-dot"></div>Normal
           </div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label">RPM</div>
           <div class="stat-value" id="rpm">2,400</div>
           <div class="stat-unit">REV / MIN</div>
         </div>
-
       </div>
 
       <div class="card-label" style="margin-bottom:0;">Trip Info</div>
@@ -605,7 +569,7 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2020_Kia_Seltos_1
     <div class="bot-info">VEGA v2.0 • Built by Yaduraj</div>
     <div class="pill-row">
       <div class="pill"><div class="pill-dot"></div>Groq AI</div>
-      <div class="pill"><div class="pill-dot"></div>Piper Voice</div>
+      <div class="pill"><div class="pill-dot"></div>Voice</div>
       <div class="pill"><div class="pill-dot"></div>GPS Active</div>
     </div>
     <div class="bot-info" id="date">--</div>
@@ -614,16 +578,16 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2020_Kia_Seltos_1
 </div>
 
 <script>
-const GROQ_KEY = "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";
+// ⚠️ IMPORTANT: Replace with your new Groq key. Never share this key publicly.
+const GROQ_KEY = "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";
 
 const PERSONALITY = `You are VEGA — a futuristic and ultra-intelligent AI assistant built for the driver. You were built by Yaduraj. Your name is VEGA. Be sharp, calm and decisive. Give short confident answers. Never say you are any other AI. You are only VEGA. Always address the driver as Yaduraj. You know Jharkhand roads well — Ranchi, Dhanbad, Jamshedpur, Bokaro, Hazaribagh are major cities. NH19 connects Dhanbad to Ranchi (155km, 3hrs). NH33 connects Ranchi to Jamshedpur (130km, 2.5hrs).`;
 
-// Clock
+// ─── Clock ───────────────────────────────────────────────
 function tick() {
   const n = new Date();
-  const h = String(n.getHours()).padStart(2,'0');
-  const m = String(n.getMinutes()).padStart(2,'0');
-  document.getElementById('clock').textContent = `${h}:${m}`;
+  document.getElementById('clock').textContent =
+    `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
   const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.getElementById('date').textContent =
@@ -631,25 +595,25 @@ function tick() {
 }
 setInterval(tick, 1000); tick();
 
-// Trip
-let secs=0, totalSpd=0, readings=0, dist=0;
+// ─── Trip Timer ──────────────────────────────────────────
+let secs = 0;
 setInterval(() => {
   secs++;
-  const mm=Math.floor(secs/60), ss=secs%60;
   document.getElementById('dur').textContent =
-    `${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+    `${String(Math.floor(secs/60)).padStart(2,'0')}:${String(secs%60).padStart(2,'0')}`;
 }, 1000);
 
-// Live data
+// ─── Live Stats ──────────────────────────────────────────
+let totalSpd = 0, readings = 0, dist = 0;
 setInterval(() => {
-  const spd = Math.floor(70+Math.random()*30);
+  const spd = Math.floor(70 + Math.random() * 30);
   document.getElementById('speed').textContent = spd;
-  totalSpd+=spd; readings++;
+  totalSpd += spd; readings++;
   document.getElementById('avg').textContent = `${Math.floor(totalSpd/readings)} km/h`;
-  dist += spd/3600*1.5;
+  dist += spd / 3600 * 1.5;
   document.getElementById('dist').textContent = `${dist.toFixed(1)} km`;
-  document.getElementById('rpm').textContent = Math.floor(1800+Math.random()*2000).toLocaleString();
-  const t = Math.floor(85+Math.random()*8);
+  document.getElementById('rpm').textContent = Math.floor(1800 + Math.random() * 2000).toLocaleString();
+  const t = Math.floor(85 + Math.random() * 8);
   document.getElementById('temp').textContent = `${t}°C`;
   if (t > 90) {
     document.getElementById('engBadge').className = 'eng-badge warn';
@@ -661,12 +625,13 @@ setInterval(() => {
     document.getElementById('alert').textContent = '✅ All systems normal';
   }
   const fuel = parseInt(document.getElementById('fuel').textContent);
-  document.getElementById('range').textContent = `${Math.floor(fuel*4.3)} km`;
+  document.getElementById('range').textContent = `${Math.floor(fuel * 4.3)} km`;
 }, 1500);
 
-// Speech Recognition
+// ─── Speech Recognition ──────────────────────────────────
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recognition;
+let recognition = null;
+let isListening = false;
 
 if (SpeechRecognition) {
   recognition = new SpeechRecognition();
@@ -676,58 +641,50 @@ if (SpeechRecognition) {
 
   recognition.onresult = async (event) => {
     const text = event.results[0][0].transcript;
-    console.log('Yaduraj:', text);
+    console.log('Yaduraj said:', text);
+    isListening = false;
     await processInput(text);
   };
 
   recognition.onerror = (event) => {
-  console.error("Speech Error:", event.error);
+    console.error('Speech error:', event.error);
+    isListening = false;
+    setStatus('Tap to talk');
+    resetOrb();
+  };
 
-  if (event.error === "aborted") {
-    setStatus("Restarting...");
-    return;
-  }
-
-  setStatus('Mic error: ' + event.error);
-  resetOrb();
-};
- 
   recognition.onend = () => {
+    isListening = false;
     if (document.getElementById('orb').classList.contains('listening')) {
       resetOrb();
+      setStatus('Tap to talk');
     }
   };
 }
 
-window.startListening = function () {
-  if (!recognition) return;
-
-  try {
-    recognition.stop();
-  } catch {}
-
-  const orb = document.getElementById('orb');
-  orb.className = 'orb listening';
-  document.getElementById('orbIcon').textContent = '🎤';
-
-  setStatus('Listening...');
-  document.getElementById('waveBars').classList.add('active');
-
-  try {
-    setTimeout(() => {
-      recognition.start();
-    }, 150);
-  } catch (e) {
-    console.error("Start error:", e);
-    setStatus('Mic start failed');
+// ─── Core Functions ──────────────────────────────────────
+function startListening() {
+  if (!recognition) {
+    setResponse('Speech recognition not supported. Please use Chrome.');
+    return;
   }
-};
+  if (isListening) return; // prevent double-start
 
- 
- window.unlockAudio = function () {
-  const u = new SpeechSynthesisUtterance('hello sir');
-  window.speechSynthesis.speak(u);
-};
+  isListening = true;
+  document.getElementById('orb').className = 'orb listening';
+  document.getElementById('orbIcon').textContent = '🎤';
+  document.getElementById('waveBars').classList.add('active');
+  setStatus('Listening...');
+
+  try {
+    recognition.start();
+  } catch(e) {
+    console.error('Start error:', e);
+    isListening = false;
+    resetOrb();
+    setStatus('Tap to talk');
+  }
+}
 
 function resetOrb() {
   document.getElementById('orb').className = 'orb';
@@ -743,36 +700,32 @@ function setResponse(text) {
   document.getElementById('response').textContent = text;
 }
 
+// ─── Process Input ───────────────────────────────────────
 async function processInput(text) {
-  const orb = document.getElementById('orb');
-  orb.className = 'orb thinking';
+  document.getElementById('orb').className = 'orb thinking';
   document.getElementById('orbIcon').textContent = '🤔';
   setStatus('Thinking...');
 
-  // Handle commands
   const cmd = text.toLowerCase();
 
   if (cmd.includes('navigate to') || cmd.includes('take me to')) {
     const dest = cmd.replace('navigate to','').replace('take me to','').trim();
-    const url = `https://maps.google.com/maps?q=${dest.replace(/ /g,'+')}`;
-    window.open(url);
-    speak(`Opening navigation to ${dest} Yaduraj.`);
+    window.open(`https://maps.google.com/maps?q=${dest.replace(/ /g,'+')}`);
+    speak(`Opening navigation to ${dest}, Yaduraj.`);
     return;
   }
 
   if (cmd.includes('weather')) {
-    const city = cmd.includes('in') ? cmd.split('in').pop().trim() : 'Dhanbad';
+    const city = cmd.includes(' in ') ? cmd.split(' in ').pop().trim() : 'Dhanbad';
     try {
       const res = await fetch(`https://wttr.in/${city}?format=3`);
-      const weather = await res.text();
-      speak(`Weather in ${city}: ${weather}`);
+      speak(`Weather in ${city}: ${await res.text()}`);
     } catch {
       speak('Cannot get weather right now Yaduraj.');
     }
     return;
   }
 
-  // AI Response
   try {
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
@@ -791,107 +744,45 @@ async function processInput(text) {
     });
 
     if (!res.ok) {
-  console.error("API ERROR:", res.status);
-  speak("API error Yaduraj. Status " + res.status);
-  return;
-}
+      speak(`API error Yaduraj. Status ${res.status}. Please check the key.`);
+      return;
+    }
 
-const data = await res.json();
-    const reply = data.choices[0].message.content;
-    speak(reply);
+    const data = await res.json();
+    speak(data.choices[0].message.content);
   } catch (e) {
     speak('Connection issue Yaduraj. Please try again.');
   }
 }
 
+// ─── Speak ───────────────────────────────────────────────
 function speak(text) {
   setResponse(text);
-  setStatus('Say "Hey VEGA" to start');
+  setStatus('Tap to talk');
   resetOrb();
 
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
-
- const voices = window.speechSynthesis.getVoices() || [];
-
-const preferred =
-  voices.find(v => v.lang === 'en-IN') ||
-  voices.find(v => v.lang.startsWith('en')) ||
-  null;
-
-if (preferred) {
-  utterance.voice = preferred;
-}
- 
   utterance.lang = 'en-IN';
   utterance.pitch = 0.85;
   utterance.rate = 0.95;
   utterance.volume = 1;
 
-  // Try to find a good voice
- 
+  const voices = window.speechSynthesis.getVoices();
+  const preferred =
+    voices.find(v => v.lang === 'en-IN') ||
+    voices.find(v => v.lang.startsWith('en')) ||
+    null;
+  if (preferred) utterance.voice = preferred;
+
   window.speechSynthesis.speak(utterance);
 }
 
-// Load voices
-window.speechSynthesis.onvoiceschanged = () => {
-  window.speechSynthesis.getVoices();
-};
+window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 
-// Wake word detection (continuous listening)
-let wakeRecognition;
-let wakeRunning = false;
-
-window.startWakeWordDetection = function () {
-  if (!SpeechRecognition || wakeRunning) return;
-
-  wakeRecognition = new SpeechRecognition();
-  wakeRecognition.lang = 'en-IN';
-  wakeRecognition.continuous = true;
-  wakeRecognition.interimResults = true;
-
-  wakeRunning = true;
-
-  wakeRecognition.onresult = (event) => {
-    const transcript = event.results[event.resultIndex][0].transcript.toLowerCase();
-
-const clean = transcript.trim().toLowerCase();
-
-if (clean === "hey vega" || clean.includes("hey vega")) {
- wakeRecognition.stop();
-      wakeRunning = false;
-
-      setTimeout(() => {
-        startListening();
-      }, 200);
-    }
-  };
-
-  wakeRecognition.onerror = (e) => {
-    console.log("Wake error:", e.error);
-  };
-
-  wakeRecognition.onend = () => {
-    wakeRunning = false;
-    setTimeout(() => startWakeWordDetection(), 1000);
-  };
-
-  try {
-    wakeRecognition.start();
-  } catch (e) {
-    console.log("Wake start failed:", e);
-  }
-}
- 
-setTimeout(() => {
-  startWakeWordDetection();
-}, 2000);
-
- document.getElementById('orbBtn').addEventListener('click', startListening);
-document.getElementById('talkBtn').addEventListener('click', () => {
-  unlockAudio();
-  startListening();
- });
+// ─── Button Listeners (attached after DOM ready) ─────────
+document.getElementById('orb').addEventListener('click', startListening);
+document.getElementById('talkBtn').addEventListener('click', startListening);
 </script>
 </body>
 </html>
