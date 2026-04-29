@@ -670,6 +670,11 @@ function startListening() {
   }
   if (isListening) return; // prevent double-start
 
+ // Unlock audio on iOS
+window.speechSynthesis.cancel();
+const unlock = new SpeechSynthesisUtterance('');
+window.speechSynthesis.speak(unlock);
+
   isListening = true;
   document.getElementById('orb').className = 'orb listening';
   document.getElementById('orbIcon').textContent = '🎤';
