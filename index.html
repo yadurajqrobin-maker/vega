@@ -310,6 +310,15 @@ function processInput(text) {
   setStatus('Thinking...');
 
   var cmd = text.toLowerCase();
+ if (cmd.indexOf('shutdown') !== -1 || cmd.indexOf('sleep') !== -1 || cmd.indexOf('stop listening') !== -1) {
+  speak('Shutting down Sir. Tap the orb when you need me.');
+  recognition.abort();
+  isListening = false;
+  document.getElementById('orb').className = 'orb';
+  document.getElementById('orbIcon').textContent = '😴';
+  setStatus('Sleeping... Tap to wake');
+  return;
+}
 
   if (cmd.indexOf('navigate to') !== -1 || cmd.indexOf('take me to') !== -1) {
     var dest = cmd.replace('navigate to','').replace('take me to','').trim();
