@@ -579,7 +579,7 @@
 
 <script>
 // ⚠️ IMPORTANT: Replace with your new Groq key. Never share this key publicly.
-const GROQ_KEY = "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";
+const GROQ_KEY = "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";
 
 const PERSONALITY = `You are VEGA — a futuristic and ultra-intelligent AI assistant built for the driver. You were built by Yaduraj. Your name is VEGA. Be sharp, calm and decisive. Give short confident answers. Never say you are any other AI. You are only VEGA. Always address the driver as Yaduraj. You know Jharkhand roads well — Ranchi, Dhanbad, Jamshedpur, Bokaro, Hazaribagh are major cities. NH19 connects Dhanbad to Ranchi (155km, 3hrs). NH33 connects Ranchi to Jamshedpur (130km, 2.5hrs).`;
 
@@ -783,6 +783,8 @@ window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices(
 // ─── Button Listeners (attached after DOM ready) ─────────
 document.getElementById('orb').addEventListener('click', startListening);
 document.getElementById('talkBtn').addEventListener('click', startListening);
+
+ console.log("NEW CODE LOADED - orb element:", document.getElementById('orb'));
 </script>
 </body>
 </html>
