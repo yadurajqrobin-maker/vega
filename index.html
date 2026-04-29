@@ -707,31 +707,29 @@ window.startListening = function () {
   if (!recognition) return;
 
   try {
-    recognition.stop(); // force reset
+    recognition.stop();
   } catch {}
-
-  setTimeout(() => {
-    recognition.start();
-  }, 150);
-};
-
 
   const orb = document.getElementById('orb');
   orb.className = 'orb listening';
   document.getElementById('orbIcon').textContent = '🎤';
+
   setStatus('Listening...');
   document.getElementById('waveBars').classList.add('active');
 
   try {
-    recognition.start();
+    setTimeout(() => {
+      recognition.start();
+    }, 150);
   } catch (e) {
     console.error("Start error:", e);
     setStatus('Mic start failed');
   }
-}
+};
+
  
  window.unlockAudio = function () {
-  const u = new SpeechSynthesisUtterance('');
+  const u = new SpeechSynthesisUtterance('hello sir');
   window.speechSynthesis.speak(u);
 };
 
