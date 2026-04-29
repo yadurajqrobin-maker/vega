@@ -3,450 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="VEGA">
 <title>VEGA — Built by Yaduraj</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-  html, body {
-    width: 100%; height: 100%;
-    overflow: hidden;
-    background: #f0f2f5;
-    color: #1a1a2e;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-  }
-
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-  }
-
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 24px;
-    background: #ffffff;
-    border-bottom: 1px solid #e2e5ea;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    flex-shrink: 0;
-  }
-
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #f0f2f5; color: #1a1a2e; font-family: 'Inter', sans-serif; font-size: 13px; }
+  .wrapper { display: flex; flex-direction: column; height: 100vh; width: 100vw; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #ffffff; border-bottom: 1px solid #e2e5ea; box-shadow: 0 1px 4px rgba(0,0,0,0.06); flex-shrink: 0; }
   .logo-area { display: flex; align-items: center; gap: 12px; }
-
-  .logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 5px;
-    color: #1a1a2e;
-  }
-
+  .logo { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 5px; color: #1a1a2e; }
   .logo-div { width: 1px; height: 20px; background: #dde1e7; }
-
-  .car-name {
-    font-size: 11px;
-    color: #8892a4;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
+  .car-name { font-size: 11px; color: #8892a4; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
   .top-right { display: flex; align-items: center; gap: 14px; }
-
-  .badge {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 10px;
-    color: #8892a4;
-    letter-spacing: 1px;
-    font-weight: 500;
-  }
-
-  .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #34c759;
-    animation: blink 2s ease-in-out infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  .clock {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 13px;
-    color: #1a1a2e;
-    letter-spacing: 2px;
-    font-weight: 600;
-  }
-
-  .main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    flex: 1;
-    overflow: hidden;
-    min-height: 0;
-  }
-
-  .left {
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    gap: 12px;
-    background: #f0f2f5;
-    overflow: hidden;
-    border-right: 1px solid #e2e5ea;
-  }
-
-  .card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  }
-
-  .card-label {
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: #8892a4;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-
-  .car-display {
-    width: 100%;
-    height: 100px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #1a1a2e, #2d3561);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    position: relative;
-  }
-
+  .badge { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #8892a4; letter-spacing: 1px; font-weight: 500; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #34c759; animation: blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .clock { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #1a1a2e; letter-spacing: 2px; font-weight: 600; }
+  .main { display: grid; grid-template-columns: 1fr 1fr; flex: 1; overflow: hidden; min-height: 0; }
+  .left { display: flex; flex-direction: column; padding: 16px; gap: 12px; background: #f0f2f5; overflow: hidden; border-right: 1px solid #e2e5ea; }
+  .card { background: #ffffff; border-radius: 14px; padding: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card-label { font-size: 9px; letter-spacing: 2px; color: #8892a4; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+  .car-display { width: 100%; height: 100px; border-radius: 10px; background: linear-gradient(135deg, #1a1a2e, #2d3561); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
   .car-emoji { font-size: 32px; }
-
-  .car-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    color: #ffffff;
-    letter-spacing: 3px;
-  }
-
-  .car-variant {
-    font-size: 9px;
-    color: #8892a4;
-    letter-spacing: 2px;
-  }
-
-  .vega-card {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 0;
-  }
-
-  .orb {
-    width: 90px; height: 90px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #ffffff, #f0f2f5);
-    border: 2px solid #e2e5ea;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1), inset 0 1px 2px rgba(255,255,255,0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    animation: orbIdle 4s ease-in-out infinite;
-  }
-
-  @keyframes orbIdle {
-    0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.08), inset 0 1px 2px rgba(255,255,255,0.8); }
-    50% { box-shadow: 0 6px 28px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.8); }
-  }
-
-  .orb.listening {
-    border-color: #007aff;
-    box-shadow: 0 0 0 6px rgba(0,122,255,0.1), 0 4px 20px rgba(0,122,255,0.2);
-    animation: orbListen 0.8s ease-in-out infinite;
-  }
-
-  .orb.thinking {
-    border-color: #ff9500;
-    box-shadow: 0 0 0 6px rgba(255,149,0,0.1), 0 4px 20px rgba(255,149,0,0.2);
-    animation: orbThink 1s ease-in-out infinite;
-  }
-
-  @keyframes orbListen {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
-  }
-
-  @keyframes orbThink {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(0.97); opacity: 0.8; }
-  }
-
+  .car-title { font-family: 'Orbitron', sans-serif; font-size: 11px; color: #ffffff; letter-spacing: 3px; }
+  .car-variant { font-size: 9px; color: #8892a4; letter-spacing: 2px; }
+  .vega-card { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 0; }
+  .orb { width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ffffff, #f0f2f5); border: 2px solid #e2e5ea; box-shadow: 0 4px 20px rgba(0,0,0,0.1), inset 0 1px 2px rgba(255,255,255,0.8); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; animation: orbIdle 4s ease-in-out infinite; }
+  @keyframes orbIdle { 0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.08), inset 0 1px 2px rgba(255,255,255,0.8); } 50% { box-shadow: 0 6px 28px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.8); } }
+  .orb.listening { border-color: #007aff; box-shadow: 0 0 0 6px rgba(0,122,255,0.1), 0 4px 20px rgba(0,122,255,0.2); animation: orbListen 0.8s ease-in-out infinite; }
+  .orb.thinking { border-color: #ff9500; box-shadow: 0 0 0 6px rgba(255,149,0,0.1), 0 4px 20px rgba(255,149,0,0.2); animation: orbThink 1s ease-in-out infinite; }
+  @keyframes orbListen { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+  @keyframes orbThink { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.97); opacity: 0.8; } }
   .orb-icon { font-size: 30px; }
-
-  .vega-name {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 12px;
-    letter-spacing: 5px;
-    color: #1a1a2e;
-    font-weight: 600;
-  }
-
-  .vega-status {
-    font-size: 10px;
-    color: #8892a4;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 500;
-    text-align: center;
-  }
-
-  .response-box {
-    background: #f8f9fb;
-    border: 1px solid #e8ecf0;
-    border-radius: 10px;
-    padding: 10px 12px;
-    width: 100%;
-    font-size: 12px;
-    color: #3d4455;
-    line-height: 1.6;
-    min-height: 48px;
-  }
-
-  .wake-btn {
-    background: #1a1a2e;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 8px 20px;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
-  }
-
+  .vega-name { font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 5px; color: #1a1a2e; font-weight: 600; }
+  .vega-status { font-size: 10px; color: #8892a4; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; text-align: center; }
+  .response-box { background: #f8f9fb; border: 1px solid #e8ecf0; border-radius: 10px; padding: 10px 12px; width: 100%; font-size: 12px; color: #3d4455; line-height: 1.6; min-height: 48px; }
+  .wake-btn { background: #1a1a2e; color: white; border: none; border-radius: 20px; padding: 8px 20px; font-size: 11px; letter-spacing: 1.5px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
   .wake-btn:active { transform: scale(0.97); opacity: 0.9; }
-
-  .right {
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    gap: 10px;
-    background: #f0f2f5;
-    overflow: hidden;
-  }
-
-  .stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .stat-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .stat-label {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    color: #8892a4;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
-  .stat-value {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1;
-    color: #1a1a2e;
-  }
-
-  .stat-unit {
-    font-size: 9px;
-    color: #b0b8c4;
-    letter-spacing: 1px;
-    font-weight: 500;
-  }
-
+  .right { display: flex; flex-direction: column; padding: 16px; gap: 10px; background: #f0f2f5; overflow: hidden; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-card { background: #ffffff; border-radius: 12px; padding: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 4px; }
+  .stat-label { font-size: 9px; letter-spacing: 1.5px; color: #8892a4; text-transform: uppercase; font-weight: 600; }
+  .stat-value { font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 700; line-height: 1; color: #1a1a2e; }
+  .stat-unit { font-size: 9px; color: #b0b8c4; letter-spacing: 1px; font-weight: 500; }
   .stat-accent-blue { color: #007aff; }
   .stat-accent-green { color: #34c759; }
   .stat-accent-orange { color: #ff9500; }
-
-  .fuel-bar {
-    height: 3px;
-    background: #e8ecf0;
-    border-radius: 2px;
-    overflow: hidden;
-    margin-top: 4px;
-  }
-
-  .fuel-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #34c759, #30d158);
-    border-radius: 2px;
-    transition: width 1s;
-  }
-
-  .eng-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 7px;
-    border-radius: 20px;
-    font-size: 9px;
-    letter-spacing: 1px;
-    margin-top: 2px;
-    width: fit-content;
-    font-weight: 600;
-  }
-
+  .fuel-bar { height: 3px; background: #e8ecf0; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .fuel-fill { height: 100%; background: linear-gradient(90deg, #34c759, #30d158); border-radius: 2px; transition: width 1s; }
+  .eng-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 7px; border-radius: 20px; font-size: 9px; letter-spacing: 1px; margin-top: 2px; width: fit-content; font-weight: 600; }
   .eng-badge.good { background: rgba(52,199,89,0.1); color: #34c759; }
   .eng-badge.warn { background: rgba(255,149,0,0.1); color: #ff9500; }
-
-  .eng-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: currentColor;
-    animation: blink 1.5s ease-in-out infinite;
-  }
-
-  .trip-row {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 10px 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
+  .eng-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; animation: blink 1.5s ease-in-out infinite; }
+  .trip-row { background: #ffffff; border-radius: 12px; padding: 10px 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
   .trip-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-
-  .trip-label {
-    font-size: 8px;
-    letter-spacing: 1px;
-    color: #8892a4;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
-  .trip-val {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 12px;
-    color: #1a1a2e;
-    font-weight: 600;
-  }
-
+  .trip-label { font-size: 8px; letter-spacing: 1px; color: #8892a4; text-transform: uppercase; font-weight: 600; }
+  .trip-val { font-family: 'Orbitron', sans-serif; font-size: 12px; color: #1a1a2e; font-weight: 600; }
   .trip-div { width: 1px; height: 24px; background: #e8ecf0; }
-
-  .alert-row {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 10px 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
+  .alert-row { background: #ffffff; border-radius: 12px; padding: 10px 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
   .alert-text { font-size: 11px; color: #3d4455; font-weight: 500; }
   .alert-time { font-size: 9px; color: #b0b8c4; font-weight: 500; }
-
-  .bottombar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 24px;
-    background: #ffffff;
-    border-top: 1px solid #e2e5ea;
-    flex-shrink: 0;
-  }
-
+  .bottombar { display: flex; justify-content: space-between; align-items: center; padding: 8px 24px; background: #ffffff; border-top: 1px solid #e2e5ea; flex-shrink: 0; }
   .bot-info { font-size: 9px; color: #b0b8c4; letter-spacing: 1px; font-weight: 500; }
-
   .pill-row { display: flex; gap: 14px; }
-
-  .pill {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 9px;
-    color: #8892a4;
-    letter-spacing: 1px;
-    font-weight: 500;
-  }
-
-  .pill-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: #34c759;
-    animation: blink 2s ease-in-out infinite;
-  }
-
-  .wave-bars {
-    display: flex;
-    gap: 2px;
-    align-items: center;
-    height: 20px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
+  .pill { display: flex; align-items: center; gap: 4px; font-size: 9px; color: #8892a4; letter-spacing: 1px; font-weight: 500; }
+  .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: #34c759; animation: blink 2s ease-in-out infinite; }
+  .wave-bars { display: flex; gap: 2px; align-items: center; height: 20px; opacity: 0; transition: opacity 0.3s; }
   .wave-bars.active { opacity: 1; }
-
-  .wave-bar {
-    width: 2px;
-    background: #007aff;
-    border-radius: 2px;
-    animation: wave 1s ease-in-out infinite;
-  }
-
+  .wave-bar { width: 2px; background: #007aff; border-radius: 2px; animation: wave 1s ease-in-out infinite; }
   .wave-bar:nth-child(1) { height: 4px; animation-delay: 0s; }
   .wave-bar:nth-child(2) { height: 10px; animation-delay: 0.1s; }
   .wave-bar:nth-child(3) { height: 16px; animation-delay: 0.2s; }
   .wave-bar:nth-child(4) { height: 10px; animation-delay: 0.3s; }
   .wave-bar:nth-child(5) { height: 4px; animation-delay: 0.4s; }
-
-  @keyframes wave {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(1.8); }
-  }
+  @keyframes wave { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.8); } }
 </style>
 </head>
 <body>
 <div class="wrapper">
 
-  <!-- TOP -->
   <div class="topbar">
     <div class="logo-area">
       <div class="logo">VEGA</div>
@@ -468,13 +106,8 @@
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
-
-    <!-- LEFT -->
     <div class="left">
-
-      <!-- Car -->
       <div class="card">
         <div class="card-label">Your Vehicle</div>
         <div class="car-display">
@@ -483,27 +116,19 @@
           <div class="car-variant">2021 • HTK • PETROL</div>
         </div>
       </div>
-
-      <!-- VEGA -->
       <div class="card vega-card" style="flex:1;">
         <div class="orb" id="orb">
           <span class="orb-icon" id="orbIcon">🎙️</span>
         </div>
         <div class="vega-name">V E G A</div>
         <div class="vega-status" id="status">Tap to talk</div>
-        <div class="response-box" id="response">
-          Hello Yaduraj. VEGA is online and ready. All systems operational.
-        </div>
+        <div class="response-box" id="response">Hello Yaduraj. VEGA is online and ready. All systems operational.</div>
         <button class="wake-btn" id="talkBtn">TAP TO TALK</button>
       </div>
-
     </div>
 
-    <!-- RIGHT -->
     <div class="right">
-
       <div class="card-label" style="margin-bottom:0;">Live Car Stats</div>
-
       <div class="stat-grid">
         <div class="stat-card">
           <div class="stat-label">Speed</div>
@@ -514,16 +139,12 @@
           <div class="stat-label">Fuel</div>
           <div class="stat-value stat-accent-green" id="fuel">65</div>
           <div class="stat-unit">PERCENT</div>
-          <div class="fuel-bar">
-            <div class="fuel-fill" id="fuelFill" style="width:65%"></div>
-          </div>
+          <div class="fuel-bar"><div class="fuel-fill" id="fuelFill" style="width:65%"></div></div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Engine Temp</div>
           <div class="stat-value stat-accent-orange" id="temp">87°C</div>
-          <div class="eng-badge good" id="engBadge">
-            <div class="eng-dot"></div>Normal
-          </div>
+          <div class="eng-badge good" id="engBadge"><div class="eng-dot"></div>Normal</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">RPM</div>
@@ -531,40 +152,24 @@
           <div class="stat-unit">REV / MIN</div>
         </div>
       </div>
-
       <div class="card-label" style="margin-bottom:0;">Trip Info</div>
       <div class="trip-row">
-        <div class="trip-item">
-          <div class="trip-label">Distance</div>
-          <div class="trip-val" id="dist">0.0 km</div>
-        </div>
+        <div class="trip-item"><div class="trip-label">Distance</div><div class="trip-val" id="dist">0.0 km</div></div>
         <div class="trip-div"></div>
-        <div class="trip-item">
-          <div class="trip-label">Duration</div>
-          <div class="trip-val" id="dur">00:00</div>
-        </div>
+        <div class="trip-item"><div class="trip-label">Duration</div><div class="trip-val" id="dur">00:00</div></div>
         <div class="trip-div"></div>
-        <div class="trip-item">
-          <div class="trip-label">Avg Speed</div>
-          <div class="trip-val" id="avg">-- km/h</div>
-        </div>
+        <div class="trip-item"><div class="trip-label">Avg Speed</div><div class="trip-val" id="avg">-- km/h</div></div>
         <div class="trip-div"></div>
-        <div class="trip-item">
-          <div class="trip-label">Range</div>
-          <div class="trip-val" id="range">280 km</div>
-        </div>
+        <div class="trip-item"><div class="trip-label">Range</div><div class="trip-val" id="range">280 km</div></div>
       </div>
-
       <div class="card-label" style="margin-bottom:0;">VEGA Alerts</div>
       <div class="alert-row">
         <div class="alert-text" id="alert">✅ All systems normal</div>
         <div class="alert-time" id="alertTime">Just now</div>
       </div>
-
     </div>
   </div>
 
-  <!-- BOTTOM -->
   <div class="bottombar">
     <div class="bot-info">VEGA v2.0 • Built by Yaduraj</div>
     <div class="pill-row">
@@ -576,62 +181,59 @@
   </div>
 
 </div>
-
 <script>
-// ⚠️ IMPORTANT: Replace with your new Groq key. Never share this key publicly.
-const GROQ_KEY = "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";
+var GROQ_KEY = "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";
 
-const PERSONALITY = `You are VEGA — a futuristic and ultra-intelligent AI assistant built for the driver. You were built by Yaduraj. Your name is VEGA. Be sharp, calm and decisive. Give short confident answers. Never say you are any other AI. You are only VEGA. Always address the driver as Yaduraj. You know Jharkhand roads well — Ranchi, Dhanbad, Jamshedpur, Bokaro, Hazaribagh are major cities. NH19 connects Dhanbad to Ranchi (155km, 3hrs). NH33 connects Ranchi to Jamshedpur (130km, 2.5hrs).`;
+var PERSONALITY = "You are VEGA — a futuristic and ultra-intelligent AI assistant built for the driver. You were built by Yaduraj. Your name is VEGA. Be sharp, calm and decisive. Give short confident answers. Never say you are any other AI. You are only VEGA. Always address the driver as Yaduraj. You know Jharkhand roads well — Ranchi, Dhanbad, Jamshedpur, Bokaro, Hazaribagh are major cities. NH19 connects Dhanbad to Ranchi (155km, 3hrs). NH33 connects Ranchi to Jamshedpur (130km, 2.5hrs).";
 
-// ─── Clock ───────────────────────────────────────────────
+var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 function tick() {
-  const n = new Date();
+  var n = new Date();
   document.getElementById('clock').textContent =
-    `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
-  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+  var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.getElementById('date').textContent =
-    `${days[n.getDay()]}, ${n.getDate()} ${months[n.getMonth()]} ${n.getFullYear()}`;
+    days[n.getDay()] + ', ' + n.getDate() + ' ' + months[n.getMonth()] + ' ' + n.getFullYear();
 }
-setInterval(tick, 1000); tick();
+setInterval(tick, 1000);
+tick();
 
-// ─── Trip Timer ──────────────────────────────────────────
-let secs = 0;
-setInterval(() => {
+var secs = 0;
+setInterval(function() {
   secs++;
   document.getElementById('dur').textContent =
-    `${String(Math.floor(secs/60)).padStart(2,'0')}:${String(secs%60).padStart(2,'0')}`;
+    String(Math.floor(secs/60)).padStart(2,'0') + ':' + String(secs%60).padStart(2,'0');
 }, 1000);
 
-// ─── Live Stats ──────────────────────────────────────────
-let totalSpd = 0, readings = 0, dist = 0;
-setInterval(() => {
-  const spd = Math.floor(70 + Math.random() * 30);
+var totalSpd = 0, readings = 0, dist = 0;
+setInterval(function() {
+  var spd = Math.floor(70 + Math.random() * 30);
   document.getElementById('speed').textContent = spd;
   totalSpd += spd; readings++;
-  document.getElementById('avg').textContent = `${Math.floor(totalSpd/readings)} km/h`;
+  document.getElementById('avg').textContent = Math.floor(totalSpd/readings) + ' km/h';
   dist += spd / 3600 * 1.5;
-  document.getElementById('dist').textContent = `${dist.toFixed(1)} km`;
+  document.getElementById('dist').textContent = dist.toFixed(1) + ' km';
   document.getElementById('rpm').textContent = Math.floor(1800 + Math.random() * 2000).toLocaleString();
-  const t = Math.floor(85 + Math.random() * 8);
-  document.getElementById('temp').textContent = `${t}°C`;
+  var t = Math.floor(85 + Math.random() * 8);
+  document.getElementById('temp').textContent = t + 'C';
   if (t > 90) {
     document.getElementById('engBadge').className = 'eng-badge warn';
     document.getElementById('engBadge').innerHTML = '<div class="eng-dot"></div>High Temp';
-    document.getElementById('alert').textContent = '⚠️ Engine temp high — check coolant';
+    document.getElementById('alert').textContent = 'Engine temp high — check coolant';
   } else {
     document.getElementById('engBadge').className = 'eng-badge good';
     document.getElementById('engBadge').innerHTML = '<div class="eng-dot"></div>Normal';
-    document.getElementById('alert').textContent = '✅ All systems normal';
+    document.getElementById('alert').textContent = 'All systems normal';
   }
-  const fuel = parseInt(document.getElementById('fuel').textContent);
-  document.getElementById('range').textContent = `${Math.floor(fuel * 4.3)} km`;
+  var fuel = parseInt(document.getElementById('fuel').textContent);
+  document.getElementById('range').textContent = Math.floor(fuel * 4.3) + ' km';
 }, 1500);
 
-// ─── Speech Recognition ──────────────────────────────────
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recognition = null;
-let isListening = false;
+var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+var recognition = null;
+var isListening = false;
 
 if (SpeechRecognition) {
   recognition = new SpeechRecognition();
@@ -639,21 +241,21 @@ if (SpeechRecognition) {
   recognition.continuous = false;
   recognition.interimResults = false;
 
-  recognition.onresult = async (event) => {
-    const text = event.results[0][0].transcript;
+  recognition.onresult = function(event) {
+    var text = event.results[0][0].transcript;
     console.log('Yaduraj said:', text);
     isListening = false;
-    await processInput(text);
+    processInput(text);
   };
 
-  recognition.onerror = (event) => {
+  recognition.onerror = function(event) {
     console.error('Speech error:', event.error);
     isListening = false;
     setStatus('Tap to talk');
     resetOrb();
   };
 
-  recognition.onend = () => {
+  recognition.onend = function() {
     isListening = false;
     if (document.getElementById('orb').classList.contains('listening')) {
       resetOrb();
@@ -662,18 +264,16 @@ if (SpeechRecognition) {
   };
 }
 
-// ─── Core Functions ──────────────────────────────────────
 function startListening() {
   if (!recognition) {
     setResponse('Speech recognition not supported. Please use Chrome.');
     return;
   }
-  if (isListening) return; // prevent double-start
+  if (isListening) return;
 
- // Unlock audio on iOS
-window.speechSynthesis.cancel();
-const unlock = new SpeechSynthesisUtterance('');
-window.speechSynthesis.speak(unlock);
+  window.speechSynthesis.cancel();
+  var unlock = new SpeechSynthesisUtterance('');
+  window.speechSynthesis.speak(unlock);
 
   isListening = true;
   document.getElementById('orb').className = 'orb listening';
@@ -693,7 +293,7 @@ window.speechSynthesis.speak(unlock);
 
 function resetOrb() {
   document.getElementById('orb').className = 'orb';
-  document.getElementById('orbIcon').textContent = '🎙️';
+  document.getElementById('orbIcon').textContent = '🎙';
   document.getElementById('waveBars').classList.remove('active');
 }
 
@@ -705,103 +305,99 @@ function setResponse(text) {
   document.getElementById('response').textContent = text;
 }
 
-// ─── Process Input ───────────────────────────────────────
-async function processInput(text) {
+function processInput(text) {
   document.getElementById('orb').className = 'orb thinking';
-  document.getElementById('orbIcon').textContent = '🤔';
+  document.getElementById('orbIcon').textContent = '...';
   setStatus('Thinking...');
 
-  const cmd = text.toLowerCase();
+  var cmd = text.toLowerCase();
 
-  if (cmd.includes('navigate to') || cmd.includes('take me to')) {
-    const dest = cmd.replace('navigate to','').replace('take me to','').trim();
-    window.open(`https://maps.google.com/maps?q=${dest.replace(/ /g,'+')}`);
-    speak(`Opening navigation to ${dest}, Yaduraj.`);
+  if (cmd.indexOf('navigate to') !== -1 || cmd.indexOf('take me to') !== -1) {
+    var dest = cmd.replace('navigate to','').replace('take me to','').trim();
+    window.open('https://maps.google.com/maps?q=' + dest.replace(/ /g,'+'));
+    speak('Opening navigation to ' + dest + ', Yaduraj.');
     return;
   }
 
-  if (cmd.includes('weather')) {
-    const city = cmd.includes(' in ') ? cmd.split(' in ').pop().trim() : 'Dhanbad';
-    try {
-      const res = await fetch(`https://wttr.in/${city}?format=3`);
-      speak(`Weather in ${city}: ${await res.text()}`);
-    } catch {
-      speak('Cannot get weather right now Yaduraj.');
-    }
+  if (cmd.indexOf('weather') !== -1) {
+    var city = cmd.indexOf(' in ') !== -1 ? cmd.split(' in ').pop().trim() : 'Dhanbad';
+    fetch('https://wttr.in/' + city + '?format=3')
+      .then(function(r) { return r.text(); })
+      .then(function(w) { speak('Weather in ' + city + ': ' + w); })
+      .catch(function() { speak('Cannot get weather right now Yaduraj.'); });
     return;
   }
 
-  try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 100,
-        messages: [
-          { role: 'system', content: PERSONALITY },
-          { role: 'user', content: text }
-        ]
-      })
-    });
-
+  fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + GROQ_KEY
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      max_tokens: 100,
+      messages: [
+        { role: 'system', content: PERSONALITY },
+        { role: 'user', content: text }
+      ]
+    })
+  })
+  .then(function(res) {
     if (!res.ok) {
-      speak(`API error Yaduraj. Status ${res.status}. Please check the key.`);
-      return;
+      speak('API error. Status ' + res.status + '. Get a new Groq key Yaduraj.');
+      return null;
     }
-
-    const data = await res.json();
-    speak(data.choices[0].message.content);
-  } catch (e) {
+    return res.json();
+  })
+  .then(function(data) {
+    if (data) speak(data.choices[0].message.content);
+  })
+  .catch(function() {
     speak('Connection issue Yaduraj. Please try again.');
-  }
+  });
 }
 
-// ─── Speak ───────────────────────────────────────────────
 function speak(text) {
   setResponse(text);
   setStatus('Tap to talk');
   resetOrb();
 
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
+
+  var utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-IN';
   utterance.pitch = 0.85;
   utterance.rate = 0.95;
   utterance.volume = 1;
 
-  const voices = window.speechSynthesis.getVoices();
-  const preferred =
-    voices.find(v => v.lang === 'en-IN') ||
-    voices.find(v => v.lang.startsWith('en')) ||
-    null;
+  var voices = window.speechSynthesis.getVoices();
+  var preferred = null;
+  for (var i = 0; i < voices.length; i++) {
+    if (voices[i].lang === 'en-IN') { preferred = voices[i]; break; }
+  }
+  if (!preferred) {
+    for (var j = 0; j < voices.length; j++) {
+      if (voices[j].lang.indexOf('en') === 0) { preferred = voices[j]; break; }
+    }
+  }
   if (preferred) utterance.voice = preferred;
 
- // iOS requires audio to be triggered by user gesture
-if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-  const resume = () => {
+  if (isIOS) {
+    setTimeout(function() {
+      window.speechSynthesis.speak(utterance);
+    }, 100);
+  } else {
     window.speechSynthesis.speak(utterance);
-    document.removeEventListener('touchend', resume);
-  };
-  document.addEventListener('touchend', resume);
-  // Trigger immediately since we're already in a tap context
-  window.speechSynthesis.cancel();
-  setTimeout(() => window.speechSynthesis.speak(utterance), 100);
-} else {
-  window.speechSynthesis.speak(utterance);
-}
+  }
 }
 
-window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+window.speechSynthesis.onvoiceschanged = function() {
+  window.speechSynthesis.getVoices();
+};
 
-// ─── Button Listeners (attached after DOM ready) ─────────
 document.getElementById('orb').addEventListener('click', startListening);
 document.getElementById('talkBtn').addEventListener('click', startListening);
-
- console.log("NEW CODE LOADED - orb element:", document.getElementById('orb'));
 </script>
 </body>
 </html>
