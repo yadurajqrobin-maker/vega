@@ -703,11 +703,17 @@ if (SpeechRecognition) {
   };
 }
 
-function startListening() {
-  if (!recognition) {
-    setResponse('Speech recognition not supported.');
-    return;
-  }
+window.startListening = function () {
+  if (!recognition) return;
+
+  try {
+    recognition.stop(); // force reset
+  } catch {}
+
+  setTimeout(() => {
+    recognition.start();
+  }, 150);
+};
 
 
   const orb = document.getElementById('orb');
@@ -811,21 +817,34 @@ function speak(text) {
 
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
+
+ const voices = window.speechSynthesis.getVoices() || [];
+
+const preferred =
+  voices.find(v => v.lang === 'en-IN') ||
+  voices.find(v => v.lang.startsWith('en')) ||
+  null;
+
+if (preferred) {
+  utterance.voice = preferred;
+}
+ 
   utterance.lang = 'en-IN';
   utterance.pitch = 0.85;
   utterance.rate = 0.95;
   utterance.volume = 1;
 
   // Try to find a good voice
-  const voices = window.speechSynthesis.getVoices();
-  const preferred = voices.find(v =>
-    v.name.toLowerCase().includes('male') ||
-    v.name.toLowerCase().includes('daniel') ||
-    v.name.toLowerCase().includes('alex') ||
-    v.lang === 'en-IN'
-  );
-  if (preferred) utterance.voice = preferred;
+ const voices = window.speechSynthesis.getVoices() || [];
 
+const preferred =
+  voices.find(v => v.lang === 'en-IN') ||
+  voices.find(v => v.lang.startsWith('en')) ||
+  null;
+
+if (preferred) {
+  utterance.voice = preferred;
+}
   window.speechSynthesis.speak(utterance);
 }
 
@@ -838,7 +857,7 @@ window.speechSynthesis.onvoiceschanged = () => {
 let wakeRecognition;
 let wakeRunning = false;
 
-function startWakeWordDetection() {
+window.startWakeWordDetection = function () {
   if (!SpeechRecognition || wakeRunning) return;
 
   wakeRecognition = new SpeechRecognition();
@@ -851,8 +870,10 @@ function startWakeWordDetection() {
   wakeRecognition.onresult = (event) => {
     const transcript = event.results[event.resultIndex][0].transcript.toLowerCase();
 
-    if (transcript.includes('hey vega') || transcript.includes('vega')) {
-      wakeRecognition.stop();
+const clean = transcript.trim().toLowerCase();
+
+if (clean === "hey vega" || clean.includes("hey vega")) {
+ wakeRecognition.stop();
       wakeRunning = false;
 
       setTimeout(() => {
@@ -876,3 +897,7 @@ function startWakeWordDetection() {
     console.log("Wake start failed:", e);
   }
 }
+ 
+setTimeout(() => {
+  startWakeWordDetection();
+}, 2000);
