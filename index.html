@@ -709,9 +709,6 @@ function startListening() {
     return;
   }
 
-  try {
-    recognition.stop(); // stop previous session if already running
-  } catch(e) {}
 
   const orb = document.getElementById('orb');
   orb.className = 'orb listening';
@@ -838,35 +835,44 @@ window.speechSynthesis.onvoiceschanged = () => {
 };
 
 // Wake word detection (continuous listening)
-let wakeWordActive = false;
+let wakeRecognition;
+let wakeRunning = false;
 
 function startWakeWordDetection() {
-  if (!SpeechRecognition) return;
+  if (!SpeechRecognition || wakeRunning) return;
 
-  const wakeRecognition = new SpeechRecognition();
+  wakeRecognition = new SpeechRecognition();
   wakeRecognition.lang = 'en-IN';
   wakeRecognition.continuous = true;
   wakeRecognition.interimResults = true;
 
+  wakeRunning = true;
+
   wakeRecognition.onresult = (event) => {
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-      const transcript = event.results[i][0].transcript.toLowerCase();
-      if (transcript.includes('hey vega') || transcript.includes('vega')) {
-        wakeRecognition.stop();
-        setTimeout(() => startListening(), 300);
-      }
+    const transcript = event.results[event.resultIndex][0].transcript.toLowerCase();
+
+    if (transcript.includes('hey vega') || transcript.includes('vega')) {
+      wakeRecognition.stop();
+      wakeRunning = false;
+
+      setTimeout(() => {
+        startListening();
+      }, 200);
     }
   };
 
-  wakeRecognition.onend = () => {
-    setTimeout(() => startWakeWordDetection(), 500);
+  wakeRecognition.onerror = (e) => {
+    console.log("Wake error:", e.error);
   };
 
-  try { wakeRecognition.start(); } catch(e) {}
-}
+  wakeRecognition.onend = () => {
+    wakeRunning = false;
+    setTimeout(() => startWakeWordDetection(), 1000);
+  };
 
-// Start wake word detection after 2 seconds
-setTimeout(startWakeWordDetection, 2000); // setTimeout(startWakeWordDetection,2000);
-</script>
-</body>
-</html>
+  try {
+    wakeRecognition.start();
+  } catch (e) {
+    console.log("Wake start failed:", e);
+  }
+}
