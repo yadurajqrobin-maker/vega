@@ -686,6 +686,12 @@ if (SpeechRecognition) {
 
   recognition.onerror = (event) => {
   console.error("Speech Error:", event.error);
+
+  if (event.error === "aborted") {
+    setStatus("Restarting...");
+    return;
+  }
+
   setStatus('Mic error: ' + event.error);
   resetOrb();
 };
@@ -860,7 +866,7 @@ function startWakeWordDetection() {
 }
 
 // Start wake word detection after 2 seconds
-setTimeout(startWakeWordDetection, 2000);
+setTimeout(startWakeWordDetection, 2000); // setTimeout(startWakeWordDetection,2000);
 </script>
 </body>
 </html>
