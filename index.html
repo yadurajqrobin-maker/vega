@@ -730,10 +730,10 @@ window.startListening = function () {
   }
 }
  
- function unlockAudio() {
+ window.unlockAudio = function () {
   const u = new SpeechSynthesisUtterance('');
   window.speechSynthesis.speak(u);
-}
+};
 
 function resetOrb() {
   document.getElementById('orb').className = 'orb';
