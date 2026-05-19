@@ -527,7 +527,6 @@
         <div class="wave-bar"></div>
       </div>
       <div class="clock" id="clock">00:00</div>
-      <button class="setup-btn" id="setupBtn">⚙ KEYS</button>
     </div>
   </div>
 
@@ -640,27 +639,10 @@
 
 </div>
 
-<!-- KEYS MODAL -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-title">API KEYS</div>
-    <div class="modal-sub">Stored only in your browser. Never in the code.</div>
-    <div class="modal-label">Groq API Key</div>
-    <input class="modal-input" id="groqInput" type="password" placeholder="gsk_..."/>
-    <div class="modal-label">ElevenLabs API Key</div>
-    <input class="modal-input" id="elevenInput" type="password" placeholder="Your ElevenLabs key..."/>
-    <button class="modal-save" id="saveKeys">SAVE</button>
-    <div class="modal-hint">
-      Groq: console.groq.com — ElevenLabs: elevenlabs.io<br>
-      Voice: Indian male (Jarvis-style)
-    </div>
-  </div>
-</div>
-
 <script>
-// ─── KEYS — never hardcoded, always from localStorage ────────────────────
-let GROQ_KEY   = localStorage.getItem('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')   || '';
-let ELEVEN_KEY = localStorage.getItem('sk_ddc8cb378c27ff4408de97e09d1dc039c1f37717d35cffad') || '';
+// ─── KEYS ─────────────────────────────────────────────────────────────────
+const GROQ_KEY   = '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';
+const ELEVEN_KEY = 'sk_ddc8cb378c27ff4408de97e09d1dc039c1f37717d35cffad';
 
 // ElevenLabs Voice ID — "Rajan" deep Indian male voice
 // If this ID doesn't work, fallback tries Adam (pNInz6obpgDQGcFmaJgB)
@@ -669,32 +651,11 @@ const ELEVEN_VOICE_FALLBACK = 'pNInz6obpgDQGcFmaJgB'; // Adam fallback
 
 const PERSONALITY = `You are VEGA — a futuristic and ultra-intelligent AI assistant built for the driver. You were built by Yaduraj Singh. Your name is VEGA. Be sharp, calm and decisive. Give short confident answers. Never say you are any other AI. You are only VEGA. Always address the driver as Yaduraj. You know Jharkhand roads well — Ranchi, Dhanbad, Jamshedpur, Bokaro, Hazaribagh are major cities. NH19 connects Dhanbad to Ranchi (155km, 3hrs). NH33 connects Ranchi to Jamshedpur (130km, 2.5hrs). Sound natural when spoken aloud — no bullet points in short answers.`;
 
-// ─── Update pills based on key presence ──────────────────────────────────
-function updatePills() {
-  document.getElementById('pillGroq').classList.toggle('off', !GROQ_KEY);
-  document.getElementById('pillEleven').classList.toggle('off', !ELEVEN_KEY);
-}
-updatePills();
+// Pills always green since keys are hardcoded
+document.getElementById('pillGroq').classList.remove('off');
+document.getElementById('pillEleven').classList.remove('off');
 
-// ─── Keys modal ──────────────────────────────────────────────────────────
-document.getElementById('setupBtn').addEventListener('click', () => {
-  document.getElementById('groqInput').value   = GROQ_KEY;
-  document.getElementById('elevenInput').value = ELEVEN_KEY;
-  document.getElementById('modalOverlay').classList.add('open');
-});
-document.getElementById('modalOverlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('modalOverlay'))
-    document.getElementById('modalOverlay').classList.remove('open');
-});
-document.getElementById('saveKeys').addEventListener('click', () => {
-  GROQ_KEY   = document.getElementById('groqInput').value.trim();
-  ELEVEN_KEY = document.getElementById('elevenInput').value.trim();
-  localStorage.setItem('vega_groq_key',   GROQ_KEY);
-  localStorage.setItem('vega_eleven_key', ELEVEN_KEY);
-  updatePills();
-  document.getElementById('modalOverlay').classList.remove('open');
-  setResponse('Keys saved. VEGA is fully online, Yaduraj.');
-});
+
 
 // ─── Clock ───────────────────────────────────────────────────────────────
 function tick() {
@@ -782,10 +743,6 @@ function startListening() {
     return;
   }
   if (isListening) return;
-  if (!GROQ_KEY) {
-    setResponse('No API key set. Tap ⚙ KEYS in the top right and enter your Groq key.');
-    return;
-  }
   isListening = true;
   document.getElementById('orb').className = 'orb listening';
   document.getElementById('orbIcon').textContent = '🎤';
@@ -960,12 +917,10 @@ window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices(
 document.getElementById('orb').addEventListener('click', startListening);
 document.getElementById('talkBtn').addEventListener('click', startListening);
 
-// ─── First run prompt ─────────────────────────────────────────────────────
-if (!GROQ_KEY) {
-  setTimeout(() => {
-    setResponse('Welcome Yaduraj. Tap ⚙ KEYS in the top right to enter your Groq and ElevenLabs API keys and activate full VEGA.');
-  }, 500);
-}
+// First run greeting
+setTimeout(() => {
+  speak('Hello Yaduraj. VEGA is online and ready. All systems operational.');
+}, 800);
 </script>
 </body>
 </html>
